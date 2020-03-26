@@ -5,9 +5,19 @@ type Level uint
 
 // Level represents the specific level of debugger severity
 const (
-	_               = iota
-	LevelInfo Level = iota
-	LevelDebug
-	LevelWarning
-	LevelCritical
+	_          = iota
+	INFO Level = iota
+	DEBUG
+	WARNING
+	CRITICAL
+)
+
+// levelsMapping maps levels to names of levels
+var (
+	levelsMapping = map[string]Level{
+		"Info":     INFO,
+		"Debug":    DEBUG,
+		"Warning":  WARNING,
+		"Critical": CRITICAL,
+	}
 )
