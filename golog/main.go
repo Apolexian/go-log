@@ -1,6 +1,11 @@
 package golog
 
-import "sync"
+import (
+	"fmt"
+	"log"
+	"os"
+	"sync"
+)
 
 // Logger struct represents the logger
 // name of logger can be set to represent file that is being logged
@@ -9,50 +14,41 @@ import "sync"
 // level represents severity level of logger
 // levels available - info, debug, warning, critical
 type Logger struct {
-	name  string
-	path  string
-	level Level
-	mutex sync.Mutex
+	name     string
+	path     string
+	mutex    sync.Mutex
+	Info     *log.Logger
+	Debug    *log.Logger
+	Warning  *log.Logger
+	Critical *log.Logger
 }
 
-// Log is a constructor for logger structure
-func Log(name string, path string, level Level) *Logger {
-	return &Logger{
-		name:  name,
-		path:  path,
-		level: level,
+// Logger flags for file writing
+const (
+	flags = log.Ldate | log.Lmicroseconds | log.Lshortfile
+)
+
+// Initialise logger
+func Initialise(name string, path string) *Logger {
+	logFile, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		fmt.Println("Error opening log file:", err)
+		os.Exit(1)
 	}
-}
-
-// SetName is used to set the name of the logger
-// e.g logger.SetName("Testing")
-func (log *Logger) SetName(name string) {
-	log.name = name
+	return &Logger{
+		name:     name,
+		path:     path,
+		Info:     log.New(logFile, name+": "+levelsMapping[INFO]+":", flags),
+		Debug:    log.New(logFile, name+": "+levelsMapping[DEBUG]+":", flags),
+		Warning:  log.New(logFile, name+": "+levelsMapping[WARNING]+":", flags),
+		Critical: log.New(logFile, name+": "+levelsMapping[CRITICAL]+":", flags),
+	}
 }
 
 // GetName returns the name of the logger
 // e.g name := logger.GetName()
 func (log *Logger) GetName() string {
 	return log.name
-}
-
-// SetLevel is used to set the level of the logger
-// e.g logger.SetLevel(INFO)
-func (log *Logger) SetLevel(level Level) {
-	log.level = level
-}
-
-// GetLevel returns the level of the logger
-// e.g level := logger.GetLevel()
-func (log *Logger) GetLevel() Level {
-	return log.level
-}
-
-// SetPath is used to set the path of the logger
-// e.g logger.SetPath(path) where path is string
-// representing the path
-func (log *Logger) SetPath(path string) {
-	log.path = path
 }
 
 // GetPath returns the path of the logger

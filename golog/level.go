@@ -14,10 +14,10 @@ const (
 
 // levelsMapping maps levels to names of levels
 var (
-	levelsMapping = map[string]Level{
-		"Info":     INFO,
-		"Debug":    DEBUG,
-		"Warning":  WARNING,
-		"Critical": CRITICAL,
+	levelsMapping = map[Level]string{
+		INFO:     "Info",
+		DEBUG:    "Debug",
+		WARNING:  "Warning",
+		CRITICAL: "Critical",
 	}
 )
