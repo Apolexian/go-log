@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"sync"
 )
 
 // Logger struct represents the logger
@@ -16,7 +15,6 @@ import (
 type Logger struct {
 	name     string
 	path     string
-	mutex    sync.Mutex
 	Info     *log.Logger
 	Debug    *log.Logger
 	Warning  *log.Logger

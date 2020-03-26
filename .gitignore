@@ -4,3 +4,9 @@
 .env
 .gopack
 cover.out
+
+# log outputs
+*.log
+
+# outputs of examples
+examples/out
