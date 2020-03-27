@@ -54,3 +54,7 @@ func (log *Logger) GetName() string {
 func (log *Logger) GetPath() string {
 	return log.path
 }
+
+// TODO add set path method
+// TODO add set name method
+// TODO testing
