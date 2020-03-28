@@ -55,6 +55,16 @@ func (log *Logger) GetPath() string {
 	return log.path
 }
 
-// TODO add set path method
-// TODO add set name method
+// SetPath returns a new logger with specified path
+func (log *Logger) SetPath(path string) *Logger {
+	newLogger := Initialise(log.name, path)
+	return newLogger
+}
+
+// SetPath returns a new logger with specified name
+func (log *Logger) SetName(name string) *Logger {
+	newLogger := Initialise(name, log.path)
+	return newLogger
+}
+
 // TODO testing
