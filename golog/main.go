@@ -66,5 +66,3 @@ func (log *Logger) SetName(name string) *Logger {
 	newLogger := Initialise(name, log.path)
 	return newLogger
 }
-
-// TODO testing

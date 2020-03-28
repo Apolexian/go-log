@@ -1,14 +1,17 @@
 package main
 
-import (
-	"../golog"
-)
+import "../golog"
 
 func main() {
-	logger := golog.Initialise("test", "test.log")
-	logger.Warning.Print("This is a test")
-	logger = logger.SetPath("test2.log")
-	logger.Debug.Print("This is a test")
-	logger = logger.SetName("new test")
-	logger.Info.Print("This is a test")
+	// create a new logger instance with:
+	// name: myLogger
+	// path: myLog.log (path counts from project basedir)
+	myLogger := golog.Initialise("myLogger","myLog.log")
+	// output to logging file with level Info
+	myLogger.Info.Print("Logger was created!")
+	// to change name of myLogger use SetName and create new instance of logger
+	myLogger = myLogger.SetName("myNewLogger")
+	// to change path of myLogger use SetPath and create new instance of logger
+	myLogger = myLogger.SetPath("myNewLog.log")
+	myLogger.Info.Print("This is now the new logger!")
 }
