@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestInit(t *testing.T) {
+func TestAll(t *testing.T) {
 	assert := assert.New(t)
 	testLogger := golog.Initialise("testLogger", "test.log")
 	assert.Equal(testLogger.GetName(), "testLogger")
